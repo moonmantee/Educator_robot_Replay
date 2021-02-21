@@ -19,19 +19,24 @@ light_sensor2 = ColorSensor(Port.S2)
 robot = DriveBase(left,right,diameter,axle_track)
 
 lift.run_time(200,1000,Stop.HOLD,False)
-robot.straight(400)
-for i in range(5990):
-    if light_sensor.reflection() <= 70:
-        robot.drive(100,(light_sensor.reflection() - 35)/1.5)
-    else:
-        if light_sensor2.reflection() <= 70:
-            robot.drive(100,(light_sensor2.reflection() - 35)/-1.5)
-        else:
-            robot.drive(100,0.0)
+robot.straight(1290)
 robot.stop()
-left.run_angle(200,275,Stop.HOLD)
-robot.straight(190)
+left.run_time(200,500,Stop.HOLD)
+robot.drive_time(100,0,2200)
+left.run_time(600,4000,Stop.HOLD)
+robot.drive_time(-100,0,1000)
+right.run_time(-200,2000,Stop.HOLD)
+robot.drive_time(-400,0,1000)
+robot.straight(50)
+while light_sensor2.color() != Color.YELLOW:
+    robot.drive(200,0)
 robot.stop()
-lift.run_time(-200,1000,Stop.HOLD)
-right.run_angle(200,290,Stop.HOLD)
-robot.drive_time(-100,0,800)
+right.run_time(200,1000)
+robot.drive_time(100,0,1000)
+lift.run_time(-200,4000,Stop.HOLD)
+time.sleep(1)
+lift.run_time(50,90)
+robot.drive_time(-100,0,1350)
+robot.drive_time(100,0,150)
+left.run_time(200,1000,Stop.HOLD)
+lift.run_time(100,1000,Stop.HOLD)

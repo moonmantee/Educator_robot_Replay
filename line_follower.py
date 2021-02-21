@@ -17,20 +17,13 @@ diameter=54
 light_sensor = ColorSensor(Port.S1)
 light_sensor2 = ColorSensor(Port.S2)
 robot = DriveBase(left,right,diameter,axle_track)
-
-# ev3.speaker.beep()
-# left.run_angle(200,270,Stop.HOLD)
-# lift.run_time(200,1000,Stop.HOLD)
-# robot.straight(58)
-# robot.stop()
-# lift.run_time(-200,1500,Stop.HOLD)
-# robot.turn(45)
-# robot.straight(-30)
-# robot.stop()
-#robot.drive_time(100,90,1000)
-# lift.run_time(200,1000,Stop.HOLD)
-# robot.drive_time(-100,0,8000)
-# lift.run_time(200,1000,Stop.HOLD)
-lift.run_time(-200,850,Stop.HOLD)
-
-
+while True:
+    for i in range(5990):
+        if light_sensor.reflection() <= 70:
+            robot.drive(100,(light_sensor.reflection() - 35)/1.5)
+        else:
+            if light_sensor2.reflection() <= 70:
+                robot.drive(100,(light_sensor2.reflection() - 35)/-1.5)
+            else:
+                robot.drive(100,0.0)
+        
